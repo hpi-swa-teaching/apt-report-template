@@ -1,4 +1,3 @@
-
 REPORT_FILE=report
 
 PANDOC=pandoc
@@ -9,21 +8,20 @@ OUTPUT_FOLDER=output
 
 PDFLATEX=pdflatex -output-directory=$(OUTPUT_FOLDER)
 
+pdf : tex .output-folder
+	$(PDFLATEX) $(REPORT_FILE).tex
 
-output-folder:
+.output-folder:
 	mkdir -p $(OUTPUT_FOLDER) 
 
 tex : 
 	$(PANDOC) $(REPORT_FILE).md -o $(REPORT_FILE).tex $(PANDOC_OPTIONS)
 
-pdf : tex output-folder
-	$(PDFLATEX) $(REPORT_FILE).tex
-
-full-pdf : tex output-folder
+full-pdf : tex .output-folder
 	$(PDFLATEX) $(REPORT_FILE).tex
 	biber $(OUTPUT_FOLDER)/$(REPORT_FILE)
 	$(PDFLATEX) $(REPORT_FILE).tex
 	$(PDFLATEX) $(REPORT_FILE).tex
 
-all : tex pdf full_pdf output-folder
+all : tex pdf full_pdf .output-folder
 .PHONY: all
