@@ -5,20 +5,25 @@ PANDOC=pandoc
 
 PANDOC_OPTIONS=--from markdown --template ./eisvogel.tex --listings --bibliography=bibliography.bib --biblatex
 
-PDFLATEX=pdflatex -output-directory=output
+OUTPUT_FOLDER=output
 
+PDFLATEX=pdflatex -output-directory=$(OUTPUT_FOLDER)
+
+
+output-folder:
+	mkdir -p $(OUTPUT_FOLDER) 
 
 tex : 
 	$(PANDOC) $(REPORT_FILE).md -o $(REPORT_FILE).tex $(PANDOC_OPTIONS)
 
-pdf : tex
+pdf : tex output-folder
 	$(PDFLATEX) $(REPORT_FILE).tex
 
-full-pdf : tex
+full-pdf : tex output-folder
 	$(PDFLATEX) $(REPORT_FILE).tex
-	biber $(REPORT_FILE)
+	biber $(OUTPUT_FOLDER)/$(REPORT_FILE)
 	$(PDFLATEX) $(REPORT_FILE).tex
 	$(PDFLATEX) $(REPORT_FILE).tex
 
-all : tex pdf full_pdf
-.PHONY: full_pdf
+all : tex pdf full_pdf output-folder
+.PHONY: all
