@@ -1,6 +1,7 @@
 ---
-title: "Example PDF"
-author: [Author]
+title: "Example Report on Report Tooling"
+author: [Your Name]
+titlepage: true
 mainfont: "Georgia"
 sansfont: "Georgia"
 ...
