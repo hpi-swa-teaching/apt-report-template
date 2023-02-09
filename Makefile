@@ -8,6 +8,9 @@ OUTPUT_FOLDER=output
 
 PDFLATEX=pdflatex -output-directory=$(OUTPUT_FOLDER)
 
+all : tex pdf full-pdf .output-folder
+.PHONY: all
+
 pdf : tex .output-folder
 	$(PDFLATEX) $(REPORT_FILE).tex
 
@@ -22,6 +25,3 @@ full-pdf : tex .output-folder
 	biber $(OUTPUT_FOLDER)/$(REPORT_FILE)
 	$(PDFLATEX) $(REPORT_FILE).tex
 	$(PDFLATEX) $(REPORT_FILE).tex
-
-all : tex pdf full_pdf .output-folder
-.PHONY: all
