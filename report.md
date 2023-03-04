@@ -4,6 +4,7 @@ author: [Your Name]
 titlepage: true
 mainfont: "Georgia"
 sansfont: "Georgia"
+biblatexoptions: [urldate=iso, date=iso, seconds=true]
 ...
 
 # Crinis mixtaque factisque ille
